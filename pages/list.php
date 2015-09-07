@@ -103,31 +103,31 @@ if (!$draw_page) {
 	// build breadcrumb
 	elgg_push_breadcrumb(elgg_echo("file"), "file/all");
 	elgg_push_breadcrumb($page_owner->name);
-	
+
 	// register title button to add a new file
 	elgg_register_title_button();
-	
+
 	// get data for tree
 	$folders = file_tools_get_folders($page_owner->getGUID());
 
 	// build page elements
 	$title_text = elgg_echo("file:user", array($page_owner->name));
-	
+
 	$body = "<div id='file_tools_list_files_container' class='elgg-content'>" . elgg_view("graphics/ajax_loader", array("hidden" => false)) . "</div>";
-	
+
 	// make sidebar
 	$sidebar = elgg_view("file_tools/list/tree", array("folder" => $folder, "folders" => $folders));
 	$sidebar .= elgg_view("file_tools/sidebar/sort_options");
-	$sidebar .= elgg_view("file_tools/sidebar/info");
+	//$sidebar .= elgg_view("file_tools/sidebar/info");
 	$sidebar .= elgg_view("page/elements/tagcloud_block", array("subtypes" => "file", "owner_guid" => $page_owner->getGUID()));
-	
+
 	// build page params
 	$params = array(
 		"title" => $title_text,
 		"content" => $body,
 		"sidebar" => $sidebar
 	);
-	
+
 	if (elgg_instanceof($page_owner, "user")) {
 		if ($page_owner->getGUID() == elgg_get_logged_in_user_guid()) {
 			$params["filter_context"] = "mine";
@@ -137,6 +137,6 @@ if (!$draw_page) {
 	} else {
 		$params["filter"] = false;
 	}
-	
+
 	echo elgg_view_page($title_text, elgg_view_layout("content", $params));
 }

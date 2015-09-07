@@ -40,17 +40,17 @@ $single_vars["id"] = "file-tools-single-form";
 switch ($upload_type) {
 	case "multi":
 		unset($multi_vars["class"]);
-		
+
 		break;
 	case "zip":
 		unset($zip_vars["class"]);
-		
+
 		break;
 	default:
 		elgg_load_library("elgg:file");
-		
+
 		$body_vars = file_prepare_form_vars();
-		
+
 		unset($single_vars["class"]);
 		break;
 }
@@ -68,7 +68,7 @@ $tabs = elgg_view("file_tools/upload_tabs", array("upload_type" => $upload_type)
 $page_data = elgg_view_layout("content", array(
 	"title" => $title_text,
 	"content" => $body,
-	"filter" => $tabs
+	"filter" => '', //$tabs
 ));
 
 // draw page
